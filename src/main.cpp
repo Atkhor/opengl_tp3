@@ -7,10 +7,10 @@
 #include <iostream>
 #include <cmath>
 
-const std::vector<GLfloat> vertex_{1.0, -0.5, 0.0,  0.0, 0.5,
+const std::vector<GLfloat> vertex{1.0, -0.5, 0.0,  0.0, 0.5,
                                    0.0, -1.0, -0.5, 0.0};
 
-const std::vector<GLfloat> vertex{
+const std::vector<GLfloat> vertex_{
     1,  1,  -1, -1, 1,  -1, -1, 1,  1,  1,  1,  -1, 1,  1,  1,  -1, 1,  1,
     1,  -1, -1, -1, -1, -1, -1, -1, 1,  1,  -1, -1, 1,  -1, 1,  -1, -1, 1,
     1,  1,  -1, 1,  -1, -1, -1, -1, -1, 1,  1,  -1, -1, 1,  -1, -1, -1, -1,
@@ -209,9 +209,9 @@ bool init_POV() {
   TEST_OPENGL_ERROR();
   if (model_location != -1) {
     matrix4 model_mat =
-        matrix4::look_at(-0.1, 0.1, -0.05, 0, 0, 0, 0, 1.0, 0.0);
+        matrix4::look_at(0, 5, 15, 0, 0, 0, 0, 1.0, 0.0);
     // matrix4 model_mat = matrix4::identity();
-    glUniformMatrix4fv(model_location, 1, GL_FALSE, &model_mat.vals[0]);
+    glUniformMatrix4fv(model_location, 1, GL_TRUE, &model_mat.vals[0]);
     TEST_OPENGL_ERROR();
   } else {
     std::cerr << "init_object: model_location not found ! \n";
@@ -223,10 +223,10 @@ bool init_POV() {
       glGetUniformLocation(prog->getProgID(), "projection_matrix");
   TEST_OPENGL_ERROR();
   if (projection_location != -1) {
-    matrix4 projection_mat = matrix4::frustum(-3, 3, -3, 3, 0.1, 30.0);
+    matrix4 projection_mat = matrix4::frustum(-0.05, 0.05, -0.05, 0.05, 0.5, 50.0);
     // matrix4 projection_mat = matrix4::identity();
 
-    glUniformMatrix4fv(projection_location, 1, GL_FALSE,
+    glUniformMatrix4fv(projection_location, 1, GL_TRUE,
                        &projection_mat.vals[0]);
     TEST_OPENGL_ERROR();
   } else {
@@ -240,7 +240,7 @@ bool init_POV() {
 int main(int argc, char **argv) {
   init_glut(argc, argv);
 
-  std::cout << matrix4::look_at(5, 6, 7, 13, 14, 15, 0, 1, 0);
+  // std::cout << matrix4::look_at(5, 6, 7, 13, 14, 15, 0, 1, 0);
   // std::cout << matrix4::look_at(5, 6, 7, 13, 14, 15, 1, 0, 0);
   //  std::cout << matrix4::frustum(-5, 5, -5, 5, 1, 100);
   //  std::cout << matrix4::frustum(-3, 3, -6, 6, 2, 300);
